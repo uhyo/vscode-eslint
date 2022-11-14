@@ -1,9 +1,11 @@
 const globals = require('globals');
+const typescriptESLintParser = require('@typescript-eslint/parser')
+const typescriptESLintPlugin = require('@typescript-eslint/eslint-plugin')
 
 module.exports = [
 	"eslint:recommended",
 	{
-		files: ["**/*.js"],
+		files: ["**/*.js", "**/*.ts"],
 		languageOptions: {
 			parserOptions: {
 				sourceType: "module"
@@ -15,6 +17,20 @@ module.exports = [
 				...globals.commonjs
 			}
 		},
+	},
+	{
+		files: ["**/*.ts"],
+		languageOptions: {
+			parser: typescriptESLintParser,
+		},
+		plugins: {
+			"@typescript-eslint": typescriptESLintPlugin,
+		},
+		rules: {
+			"@typescript-eslint/consistent-type-assertions": ["error", {
+				assertionStyle: "never"
+			}]
+		}
 	},
 	{
 		files: ["sub/*.js"],
